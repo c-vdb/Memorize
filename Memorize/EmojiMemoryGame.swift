@@ -24,25 +24,25 @@ class EmojiMemoryGame: ObservableObject {
     private var model: MemoryGame<String> = MemoryGame<String>(numberOfPairsOfCards: 4) { _ in "❤️" }
     */
     
+    
+    typealias Card = MemoryGame<String>.Card  // Fullname ist EmojiMemoryGame.MemoryGame<String>.Card, because here we are in the class EmojiMemoryGame
     static let emojis = ["🚗", "🛵", "🚅", "🚁", "🛶", "🛳", "🚲", "🛸",
                          "🛩", "⛵️", "🏎", "🛺", "🚄", "🚒", "🚑", "🚀",
                          "🏍", "🛴", "🚂", "🚤", "🚜", "🚛", "🚚", "🛻"]
     
     static func createMemoryGame() -> MemoryGame<String> {
-        MemoryGame<String>(numberOfPairsOfCards: 4) { pairIndex in emojis[pairIndex]
-            
-        }
+        MemoryGame<String>(numberOfPairsOfCards: 4) { pairIndex in emojis[pairIndex] }
     }
     
-    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+    @Published private var model = EmojiMemoryGame.createMemoryGame()
     
     
-    var cards: Array<MemoryGame<String>.Card> {
+    var cards: Array<Card> {
         return model.cards
     }
     
     // MARK: - Intent(s)
-    func choose(_ card: MemoryGame<String>.Card) {
+    func choose(_ card: Card) {
         model.choose(card)
     }
     
